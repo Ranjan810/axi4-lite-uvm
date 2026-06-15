@@ -1,0 +1,8 @@
+obj_dir/
+*.vcd
+*.fsdb
+*.wlf
+*.log
+simv
+simv.daidir/
+csrc/
