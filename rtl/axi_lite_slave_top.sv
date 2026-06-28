@@ -7,9 +7,8 @@ module axi_lite_slave_top #(
     input  logic                  aclk,
     input  logic                  aresetn,
 
-    // ---------------------------------------------------------
     // AXI Write Address Channel (AW)
-    // ---------------------------------------------------------
+
     input  logic [ADDR_WIDTH-1:0] awaddr,
     /* verilator lint_off UNUSEDSIGNAL */
     input  logic [2:0]            awprot,
@@ -17,24 +16,21 @@ module axi_lite_slave_top #(
     input  logic                  awvalid,
     output logic                  awready,
 
-    // ---------------------------------------------------------
     // AXI Write Data Channel (W)
-    // ---------------------------------------------------------
+
     input  logic [DATA_WIDTH-1:0] wdata,
     input  logic [3:0]            wstrb,
     input  logic                  wvalid,
     output logic                  wready,
 
-    // ---------------------------------------------------------
     // AXI Write Response Channel (B)
-    // ---------------------------------------------------------
+
     output logic [1:0]            bresp,
     output logic                  bvalid,
     input  logic                  bready,
 
-    // ---------------------------------------------------------
     // AXI Read Address Channel (AR)
-    // ---------------------------------------------------------
+
     input  logic [ADDR_WIDTH-1:0] araddr,
     /* verilator lint_off UNUSEDSIGNAL */
     input  logic [2:0]            arprot,
@@ -42,26 +38,23 @@ module axi_lite_slave_top #(
     input  logic                  arvalid,
     output logic                  arready,
 
-    // ---------------------------------------------------------
     // AXI Read Data Channel (R)
-    // ---------------------------------------------------------
+
     output logic [DATA_WIDTH-1:0] rdata,
     output logic [1:0]            rresp,
     output logic                  rvalid,
     input  logic                  rready,
 
-    // ---------------------------------------------------------
     // Hardware-Facing Interface (SoC boundary)
-    // ---------------------------------------------------------
+
     input  logic [31:0]           hw_status_in,
     input  logic [31:0]           hw_data_out,
     output logic [31:0]           hw_ctrl_out,
     output logic [31:0]           hw_data_in
 );
 
-    // ---------------------------------------------------------
     // Internal Interconnect Signals
-    // ---------------------------------------------------------
+
     logic                  wr_en;
     logic [ADDR_WIDTH-1:0] wr_addr;
     logic [DATA_WIDTH-1:0] wr_data;
@@ -73,9 +66,8 @@ module axi_lite_slave_top #(
     logic [DATA_WIDTH-1:0] rd_data;
     logic                  rd_err;
 
-    // ---------------------------------------------------------
     // Write FSM Instantiation
-    // ---------------------------------------------------------
+
     axi_write_fsm #(
         .ADDR_WIDTH(ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH)
@@ -99,9 +91,8 @@ module axi_lite_slave_top #(
         .wr_err  (wr_err)
     );
 
-    // ---------------------------------------------------------
     // Read FSM Instantiation
-    // ---------------------------------------------------------
+
     axi_read_fsm #(
         .ADDR_WIDTH(ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH)
@@ -121,9 +112,8 @@ module axi_lite_slave_top #(
         .rd_err  (rd_err)
     );
 
-    // ---------------------------------------------------------
     // Register File Instantiation
-    // ---------------------------------------------------------
+
     axi_reg_file #(
         .ADDR_WIDTH(ADDR_WIDTH),
         .DATA_WIDTH(DATA_WIDTH)
